@@ -1,4 +1,5 @@
 import os
+from db import get_con
 from flask import Flask
 
 app = Flask(__name__)
@@ -6,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return get_con()
 
 
 if __name__ == '__main__':
