@@ -1,5 +1,5 @@
 import os
-from db import get_con, create_table
+from db import get_con, create_table, get_all_homes
 from flask import Flask
 
 app = Flask(__name__)
@@ -15,7 +15,10 @@ def create_table_controller():
     return create_table()
 
 
-create_table()
+@app.route('/getHomes')
+def create_table_controller():
+    return get_all_homes()
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

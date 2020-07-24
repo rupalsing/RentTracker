@@ -3,6 +3,8 @@ import psycopg2
 
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+
 # conn = psycopg2.connect(database='rent_tracker', user='rupal', password='postgres')
 
 
@@ -13,12 +15,20 @@ def get_con():
 
 
 def create_table():
-    commands = ["create table rent_tracker ( id serial, house_link text not null); "
-                "create unique index rent_tracker_id_uindex on rent_tracker (id);"
-                "alter table rent_tracker add constraint rent_tracker_pk primary key (id);"]
+    commands = ["create schema home_schema;",
+                "create table home_schema.rent_tracker ( id serial, house_link text not null); "
+                "create unique index rent_tracker_id_uindex on home_schema.rent_tracker (id);"
+                "alter table home_schema.rent_tracker add constraint rent_tracker_pk primary key (id);"]
     cur = conn.cursor()
     for command in commands:
         cur.execute(command)
     cur.close()
     conn.commit()
     return "create table success"
+
+
+def get_all_homes():
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM home_schema.rent_tracker")
+    result = cur.fetchall()
+    return list(result)
