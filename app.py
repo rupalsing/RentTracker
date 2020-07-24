@@ -22,8 +22,10 @@ def get_all_homes_controller():
 
 @app.route('/add', methods=['POST'])
 def add_homes_controller():
-    return request.form['link']
-    # return add_home()
+    if 'link' not in request.form:
+        return {'msg': 'Give link as form input'}
+    else:
+        return add_home(request.form['link'])
 
 
 if __name__ == '__main__':
