@@ -7,4 +7,6 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 
 def get_con():
-    return conn
+    cur = conn.cursor()
+    cur.execute('SELECT version()')
+    return "Postgres with version " + cur.fetchone()
