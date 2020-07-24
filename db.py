@@ -31,7 +31,13 @@ def get_all_homes():
     cur = conn.cursor()
     cur.execute("SELECT * FROM home_schema.rent_tracker")
     result = cur.fetchall()
-    return {'homes': result}
+    ans = {'homes': []}
+    for row in result:
+        ans['homes'].append({
+            'id': row[0],
+            'link': row[1]
+        })
+    return ans
 
 
 def add_home(house_link):
