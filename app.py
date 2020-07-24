@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def get_connection_controller():
     return get_con()
 
 

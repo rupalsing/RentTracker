@@ -31,4 +31,4 @@ def get_all_homes():
     cur = conn.cursor()
     cur.execute("SELECT * FROM home_schema.rent_tracker")
     result = cur.fetchall()
-    return list(result)
+    return str(result)
