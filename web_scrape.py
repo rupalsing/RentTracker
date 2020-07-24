@@ -9,7 +9,7 @@ options.add_argument('--incognito')
 options.add_argument('--headless')
 
 options.binary_location = os.environ.get("GOOGLE_CHROME_SHIM", None)
-driver = webdriver.Chrome(executable_path="chromedriver", chrome_options=options)
+driver = webdriver.Chrome(chrome_options=options)
 
 # driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver", chrome_options=options)
 
