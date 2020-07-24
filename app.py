@@ -22,7 +22,7 @@ def get_all_homes_controller():
 
 @app.route('/add', methods=['POST'])
 def add_homes_controller():
-    return request.form.link
+    return request.form['link']
     # return add_home()
 
 
