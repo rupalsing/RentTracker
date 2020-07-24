@@ -11,12 +11,12 @@ options.add_argument('--disable-gpu')
 options.add_argument('--no-sandbox')
 
 options.binary_location = os.environ.get("GOOGLE_CHROME_BIN", None)
-driver = webdriver.Chrome(chrome_options=options)
+driver = webdriver.Chrome('/app/.chromedriver/bin/chromedriver', chrome_options=options)
 
 # driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver", chrome_options=options)
 
 driver.get("https://www.google.com")
-
+print(driver.page_source)
 # quote_page = "https://www.daft.ie/westmeath/houses-for-rent/athlone/st-patricks-terrace-athlone-westmeath-2049596/"
 # page = urlopen(quote_page)
 # soup = BeautifulSoup(page, 'html.parser')
