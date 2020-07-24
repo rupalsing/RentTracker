@@ -16,7 +16,7 @@ def create_table_controller():
 
 
 @app.route('/getHomes')
-def create_table_controller():
+def get_all_homes_controller():
     return get_all_homes()
 
 
