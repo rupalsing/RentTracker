@@ -4,12 +4,14 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 
 options = webdriver.ChromeOptions()
-options.add_argument('--ignore-certificate-errors')
-options.add_argument('--incognito')
-options.add_argument('--headless')
+options.binary_location = os.environ.get("GOOGLE_CRHOME_BIN")
+options.add_argument("--no-sandbox")
+options.add_argument("--headless")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument('--disable-gpu')
 
-options.binary_location = os.environ.get("GOOGLE_CHROME_SHIM", None)
-driver = webdriver.Chrome(chrome_options=options)
+the_path = os.environ.get("CHROMEDRIVER_PATH")
+driver = webdriver.Chrome(executable_path=the_path, options=options)
 
 # driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver", chrome_options=options)
 
