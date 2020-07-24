@@ -31,4 +31,11 @@ def get_all_homes():
     cur = conn.cursor()
     cur.execute("SELECT * FROM home_schema.rent_tracker")
     result = cur.fetchall()
-    return str(result)
+    return {'homes': result}
+
+
+def add_home(house_link):
+    cur = conn.cursor()
+    cur.execute("INSERT INTO home_schema.rent_tracker(house_link) VALUES('" + house_link + "')")
+    conn.commit()
+    return {'msg': 'Success'}

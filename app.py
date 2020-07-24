@@ -1,6 +1,6 @@
 import os
-from db import get_con, create_table, get_all_homes
-from flask import Flask
+from db import get_con, create_table, get_all_homes, add_home
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -18,6 +18,12 @@ def create_table_controller():
 @app.route('/getHomes')
 def get_all_homes_controller():
     return get_all_homes()
+
+
+@app.route('/add', methods=['POST'])
+def add_homes_controller():
+    return request.form
+    # return add_home()
 
 
 if __name__ == '__main__':
