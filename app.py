@@ -1,5 +1,5 @@
 import os
-from db import get_con
+from db import get_con, create_table
 from flask import Flask
 
 app = Flask(__name__)
@@ -7,8 +7,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return str(get_con())
+    return get_con()
 
+
+@app.route('/createTable')
+def create_table_controller():
+    return create_table()
+
+
+create_table()
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
