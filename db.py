@@ -13,10 +13,9 @@ def get_con():
 
 
 def create_table():
-    commands = ["create schema home_schema;",
-                "create table home_schema.rent_tracker ( id serial, house_link text not null); "
-                "create unique index rent_tracker_id_uindex on home_schema.rent_tracker (id);"
-                "alter table home_schema.rent_tracker add constraint rent_tracker_pk primary key (id);"]
+    commands = ["create table rent_tracker ( id serial, house_link text not null); "
+                "create unique index rent_tracker_id_uindex on rent_tracker (id);"
+                "alter table rent_tracker add constraint rent_tracker_pk primary key (id);"]
     cur = conn.cursor()
     for command in commands:
         cur.execute(command)
