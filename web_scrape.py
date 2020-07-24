@@ -15,7 +15,7 @@ driver = webdriver.Chrome(executable_path=the_path, options=options)
 
 # driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver", chrome_options=options)
 
-driver.get("www.google.com")
+driver.get("https://www.google.com")
 
 # quote_page = "https://www.daft.ie/westmeath/houses-for-rent/athlone/st-patricks-terrace-athlone-westmeath-2049596/"
 # page = urlopen(quote_page)
