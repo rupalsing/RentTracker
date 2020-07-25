@@ -1,5 +1,6 @@
 import os
-from db import get_con, create_table, get_all_homes, add_home, drop_table
+from db import get_con, get_all_homes, add_home
+from web_scrape import scrape_for_me
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -8,16 +9,6 @@ app = Flask(__name__)
 @app.route('/')
 def get_connection_controller():
     return get_con()
-
-
-@app.route('/createTable')
-def create_table_controller():
-    return create_table()
-
-
-@app.route('/dropTable')
-def drop_table_controller():
-    return drop_table()
 
 
 @app.route('/getHomes')
@@ -30,7 +21,10 @@ def add_homes_controller():
     if 'link' not in request.form:
         return {'msg': 'Give link as form input'}
     else:
-        return add_home(request.form['link'])
+        title, rent, property_overview, lease, latitude, longitude, description, list_of_facilities, phone = \
+            scrape_for_me(request.form['link'])
+        return add_home(request.form['link'], title, rent, property_overview, lease, latitude,
+                        longitude, description, list_of_facilities, phone)
 
 
 if __name__ == '__main__':

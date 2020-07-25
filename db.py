@@ -14,27 +14,6 @@ def get_con():
     return "Postgres with version " + str(cur.fetchone())
 
 
-def create_table():
-    commands = ["create schema home_schema;",
-                "create table home_schema.rent_tracker ( id serial, house_link text not null); "
-                "create unique index rent_tracker_id_uindex on home_schema.rent_tracker (id);"
-                "alter table home_schema.rent_tracker add constraint rent_tracker_pk primary key (id);"]
-    cur = conn.cursor()
-    for command in commands:
-        cur.execute(command)
-    cur.close()
-    conn.commit()
-    return "create table success"
-
-
-def drop_table():
-    cur = conn.cursor()
-    cur.execute("DROP TABLE home_schema.rent_tracker")
-    cur.close()
-    conn.commit()
-    return "drop table success"
-
-
 def get_all_homes():
     cur = conn.cursor()
     cur.execute("SELECT * FROM home_schema.rent_tracker")
@@ -43,13 +22,22 @@ def get_all_homes():
     for row in result:
         ans['homes'].append({
             'id': row[0],
-            'link': row[1]
+            'link': row[1],
+            'title': row[2],
+            'property_overview': row[3],
+            'lease': row[4],
+            'description': row[5],
+            'facilities': row[6],
+            'phone': row[7],
         })
     return ans
 
 
-def add_home(house_link):
+def add_home(link, title, prop_over, lease, description, facilities, phone, rent, latitute, longitude):
     cur = conn.cursor()
-    cur.execute("INSERT INTO home_schema.rent_tracker(house_link) VALUES('" + house_link + "')")
+    query = """ INSERT INTO home_schema.rent_tracker (link, title, prop_over, lease, description, facilities,
+     phone, rent, latitute, longitude) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+    record = (link, title, prop_over, lease, description, facilities, phone, rent, latitute, longitude)
+    cur.execute(query, record)
     conn.commit()
     return {'msg': 'Success'}
