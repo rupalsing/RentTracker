@@ -1,5 +1,5 @@
 import os
-from db import get_con, create_table, get_all_homes, add_home
+from db import get_con, create_table, get_all_homes, add_home, drop_table
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -13,6 +13,11 @@ def get_connection_controller():
 @app.route('/createTable')
 def create_table_controller():
     return create_table()
+
+
+@app.route('/dropTable')
+def create_table_controller():
+    return drop_table()
 
 
 @app.route('/getHomes')

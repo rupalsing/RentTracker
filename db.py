@@ -27,6 +27,13 @@ def create_table():
     return "create table success"
 
 
+def drop_table():
+    cur = conn.cursor()
+    cur.execute("DROP TABLE home_schema.rent_tracker")
+    cur.close()
+    conn.commit()
+
+
 def get_all_homes():
     cur = conn.cursor()
     cur.execute("SELECT * FROM home_schema.rent_tracker")

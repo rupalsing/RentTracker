@@ -1,21 +1,20 @@
 import os
 import time
-from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
 options = webdriver.ChromeOptions()
-options.add_argument('--ignore-certificate-errors')
-options.add_argument('--incognito')
-options.add_argument('--headless')
-options.add_argument('--disable-gpu')
-options.add_argument('--no-sandbox')
+# options.add_argument('--ignore-certificate-errors')
+# options.add_argument('--incognito')
+# options.add_argument('--headless')
+# options.add_argument('--disable-gpu')
+# options.add_argument('--no-sandbox')
 
-options.binary_location = os.environ.get("GOOGLE_CHROME_BIN", None)
-driver = webdriver.Chrome(chrome_options=options)
+# options.binary_location = os.environ.get("GOOGLE_CHROME_BIN", None)
+# driver = webdriver.Chrome(chrome_options=options)
 
 
-# driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver", chrome_options=options)
+driver = webdriver.Chrome("./chromedriver", options=options)
 
 
 def load_page(url):
@@ -33,12 +32,13 @@ def load_page_and_get_source(url):
 
 def click_button_and_refresh_soup(button_selector):
     global soup
-    driver.find_element_by_css_selector(button_selector).click()
-    time.sleep(0.100)
+    for i in driver.find_elements_by_css_selector(button_selector):
+        i.click()
     soup = BeautifulSoup(get_source(), 'html.parser')
 
 
-quote_page = "https://www.daft.ie/westmeath/houses-for-rent/athlone/st-patricks-terrace-athlone-westmeath-2049596/"
+# quote_page = "https://www.daft.ie/westmeath/houses-for-rent/athlone/st-patricks-terrace-athlone-westmeath-2049596/"
+quote_page = "https://www.daft.ie/westmeath/apartments-for-rent/athlone/kilmacoo-lane-dublin-road-athlone-westmeath-2034037/"
 soup = BeautifulSoup(load_page_and_get_source(quote_page), 'html.parser')
 
 rent = soup.select_one(
@@ -83,8 +83,9 @@ list_of_facilities = [element.text for element in facilities.select('.PropertyFa
 click_button_and_refresh_soup('#property-contact-form > button.Contact'
                               'Form__secondaryButton.ContactForm__baseButton')
 
-phone = soup.select_one('#property-contact-form > button.ContactForm__second'
-                        'aryButton.ContactForm__baseButton').text
+phone = [ele.text.split("Call ")[1] for ele in soup.select('#property-contact-form > b'
+                                                           'utton.ContactForm__secondaryButton.Cont'
+                                                           'actForm__baseButton')]
 
 print("Title>>>")
 print(title_ele)
@@ -110,3 +111,5 @@ print()
 print("Phone>>>")
 print(phone)
 print()
+
+driver.close()

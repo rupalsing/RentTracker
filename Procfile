@@ -1,1 +1,1 @@
-web: python3 web_scrape.py
+web: python3 app.py
