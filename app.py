@@ -23,8 +23,8 @@ def add_homes_controller():
     else:
         title, rent, property_overview, lease, latitude, longitude, description, list_of_facilities, phone = \
             scrape_for_me(request.form['link'])
-        return add_home(request.form['link'], title, rent, property_overview, lease, latitude,
-                        longitude, description, list_of_facilities, phone)
+        return add_home(request.form['link'], title, property_overview, lease, description, list_of_facilities,
+                        phone, rent, latitude, longitude)
 
 
 if __name__ == '__main__':
