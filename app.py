@@ -16,7 +16,7 @@ def create_table_controller():
 
 
 @app.route('/dropTable')
-def create_table_controller():
+def drop_table_controller():
     return drop_table()
 
 
