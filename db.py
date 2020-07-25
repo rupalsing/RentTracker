@@ -32,6 +32,7 @@ def drop_table():
     cur.execute("DROP TABLE home_schema.rent_tracker")
     cur.close()
     conn.commit()
+    return "drop table success"
 
 
 def get_all_homes():
