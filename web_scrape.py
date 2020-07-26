@@ -1,4 +1,6 @@
 import os
+import json
+from mapbox_helper import get_stores_location
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
@@ -87,4 +89,7 @@ def scrape_for_me(link):
                                                                'utton.ContactForm__secondaryButton.Cont'
                                                                'actForm__baseButton')]
 
-    return title, rent, property_overview, lease, latitude, longitude, description, str(list_of_facilities), str(phone)
+    stores = get_stores_location(latitude, longitude)
+
+    return title, rent, property_overview, lease, latitude, longitude, description, json.dumps(list_of_facilities), \
+        json.dumps(phone), json.dumps(stores)

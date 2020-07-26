@@ -1,6 +1,8 @@
-create table if not exists home_schema.rent_tracker
+create table home_schema.rent_tracker
 (
-	link text not null,
+	link text not null
+		constraint rent_tracker_pk
+			primary key,
 	title text,
 	prop_over text,
 	lease text,
@@ -9,12 +11,10 @@ create table if not exists home_schema.rent_tracker
 	phone text,
 	rent text,
 	latitude text,
-	longitude text
+	longitude text,
+	stores text
 );
 
 create unique index rent_tracker_link_uindex
 	on home_schema.rent_tracker (link);
 
-alter table home_schema.rent_tracker
-	add constraint rent_tracker_pk
-		primary key (link);
