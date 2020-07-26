@@ -5,7 +5,7 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 
-# conn = psycopg2.connect(database='rent_tracker', user='rupal', password='postgres')
+# conn = psycopg2.connect(database='test_rent', user='rupal', password='postgres')
 
 
 def get_con():

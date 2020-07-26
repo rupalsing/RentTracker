@@ -39,6 +39,47 @@ def click_button_and_refresh_soup(button_selector):
     soup = BeautifulSoup(get_source(), 'html.parser')
 
 
+def get_property_details(data_type):
+    if data_type == 1:
+        return soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > div.PropertyDet'
+                               'ailsPage__propertyDetailsSmallContainer > div > section:nth-child(4) > p').text.strip(), \
+               soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > div.Propert'
+                               'yDetailsPage__propert'
+                               'yDetailsSmallContainer > div > section:nth-child(3) > div.PropertyOverview_'
+                               '_propertyOverviewDetails > div:nth-child(1)').text + '\n' + \
+               soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > '
+                               'div.PropertyDetailsPage__propertyDetailsSmallContainer > '
+                               'div > section:nth-child(3) > div.PropertyOverview__propertyOverviewDetails > '
+                               'div:nth-child(2)').text, \
+               soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > '
+                               'div.PropertyDetailsPage__propertyDetailsSmallContainer > div >'
+                               ' section:nth-child(3) > div.PropertyOverview__propertyOverviewDetails >'
+                               ' div.PropertyOvervi'
+                               'ew__availability > div').text.split('Lease: ')[1], \
+               soup.select_one('body > div.PropertyDetailsPage__rootContainer > '
+                               'div > div.PropertyDetailsPage__propertyDetailsSmallContainer > '
+                               'div > section:nth-child(5) > ul')
+    elif data_type == 2:
+        return soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > div.PropertyDet'
+                               'ailsPage__propertyDetailsSmallContainer > div > section:nth-child(5) > p').text.strip(), \
+               soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > div.Propert'
+                               'yDetailsPage__propert'
+                               'yDetailsSmallContainer > div > section:nth-child(4) > div.PropertyOverview_'
+                               '_propertyOverviewDetails > div:nth-child(1)').text + '\n' + \
+               soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > '
+                               'div.PropertyDetailsPage__propertyDetailsSmallContainer > '
+                               'div > section:nth-child(4) > div.PropertyOverview__propertyOverviewDetails > '
+                               'div:nth-child(2)').text, \
+               soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > '
+                               'div.PropertyDetailsPage__propertyDetailsSmallContainer > div >'
+                               ' section:nth-child(4) > div.PropertyOverview__propertyOverviewDetails >'
+                               ' div.PropertyOvervi'
+                               'ew__availability > div').text.split('Lease: ')[1], \
+               soup.select_one('body > div.PropertyDetailsPage__rootContainer > '
+                               'div > div.PropertyDetailsPage__propertyDetailsSmallContainer > '
+                               'div > section:nth-child(6) > ul')
+
+
 def scrape_for_me(link):
     global soup
     soup = BeautifulSoup(load_page_and_get_source(link), 'html.parser')
@@ -60,30 +101,8 @@ def scrape_for_me(link):
 
     description_ele = soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > div.PropertyDet'
                                       'ailsPage__propertyDetailsSmallContainer > div > section:nth-child(5) > p')
-    if description_ele is None:
-        description = soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > div.PropertyDet'
-                                      'ailsPage__propertyDetailsSmallContainer > div > section:nth-child(4) > p').text.strip()
-    else:
-        description = description_ele.text.strip()
 
-    property_overview = soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > div.Propert'
-                                        'yDetailsPage__propert'
-                                        'yDetailsSmallContainer > div > section:nth-child(4) > div.PropertyOverview_'
-                                        '_propertyOverviewDetails > div:nth-child(1)').text + '\n' + \
-                        soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > '
-                                        'div.PropertyDetailsPage__propertyDetailsSmallContainer > '
-                                        'div > section:nth-child(4) > div.PropertyOverview__propertyOverviewDetails > '
-                                        'div:nth-child(2)').text
-
-    lease = soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > '
-                            'div.PropertyDetailsPage__propertyDetailsSmallContainer > div >'
-                            ' section:nth-child(4) > div.PropertyOverview__propertyOverviewDetails >'
-                            ' div.PropertyOvervi'
-                            'ew__availability > div').text.split('Lease: ')[1]
-
-    facilities = soup.select_one('body > div.PropertyDetailsPage__rootContainer > '
-                                 'div > div.PropertyDetailsPage__propertyDetailsSmallContainer > '
-                                 'div > section:nth-child(6) > ul')
+    description, property_overview, lease, facilities = get_property_details(1 if description_ele is None else 2)
 
     list_of_facilities = [element.text for element in facilities.select('.PropertyFacilities__iconText')]
 
