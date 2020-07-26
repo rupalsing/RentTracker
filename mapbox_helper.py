@@ -29,6 +29,8 @@ def get_stores_location(latitude, longitude):
     add_store("Tesco", latitude, longitude, result)
     add_store("Lidl", latitude, longitude, result)
     add_store("Aldi", latitude, longitude, result)
+    add_store("Spar", latitude, longitude, result)
+    add_store("Centra", latitude, longitude, result)
 
     return result
 
