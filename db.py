@@ -36,7 +36,7 @@ def get_all_homes():
 def add_home(link, title, prop_over, lease, description, facilities, phone, rent, latitude, longitude, stores):
     cur = conn.cursor()
     query = """ INSERT INTO home_schema.rent_tracker (link, title, prop_over, lease, description, facilities,
-     phone, rent, latitude, longitude, store) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s)"""
+     phone, rent, latitude, longitude, stores) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s)"""
     record = (link, title, prop_over, lease, description, facilities, phone, rent, latitude, longitude, stores)
     cur.execute(query, record)
     conn.commit()
