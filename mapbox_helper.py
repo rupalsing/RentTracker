@@ -9,19 +9,19 @@ def get_place_json(query, latitude, longitude):
         f"P20cH_-B-l0Tb3Xw&proximity={longitude},{latitude}"))['features'][0]
 
 
-def add_store(store_name, latitude, longitude, res):
-    res[store_name] = {}
-    nearest_store = get_place_json(store_name, latitude, longitude)
+def add_store(store_to_find, latitude, longitude, res):
+    res[store_to_find] = {}
+    nearest_store = get_place_json(store_to_find, latitude, longitude)
     store_name = nearest_store['place_name']
     store_lat = nearest_store['center'][1]
     store_long = nearest_store['center'][0]
     store_dist, store_time = find_distance_between(latitude, longitude, store_lat, store_long)
 
-    res[store_name]['name'] = store_name
-    res[store_name]['lat'] = store_lat
-    res[store_name]['long'] = store_long
-    res[store_name]['distance'] = store_dist
-    res[store_name]['time'] = store_time
+    res[store_to_find]['name'] = store_name
+    res[store_to_find]['lat'] = store_lat
+    res[store_to_find]['long'] = store_long
+    res[store_to_find]['distance'] = store_dist
+    res[store_to_find]['time'] = store_time
 
 
 def get_stores_location(latitude, longitude):
