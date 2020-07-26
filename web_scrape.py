@@ -58,8 +58,13 @@ def scrape_for_me(link):
                             'mallContainer > div > section.Section__container.Property'
                             'MainInformation__noTopPadding > h1').text
 
-    description = soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > div.PropertyDet'
-                                  'ailsPage__propertyDetailsSmallContainer > div > section:nth-child(5) > p').text.strip()
+    description_ele = soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > div.PropertyDet'
+                                      'ailsPage__propertyDetailsSmallContainer > div > section:nth-child(5) > p')
+    if description_ele is None:
+        description = soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > div.PropertyDet'
+                                      'ailsPage__propertyDetailsSmallContainer > div > section:nth-child(4) > p').text.strip()
+    else:
+        description = description_ele.text.strip()
 
     property_overview = soup.select_one('body > div.PropertyDetailsPage__rootContainer > div > div.Propert'
                                         'yDetailsPage__propert'
@@ -92,4 +97,4 @@ def scrape_for_me(link):
     stores = get_stores_location(latitude, longitude)
 
     return title, rent, property_overview, lease, latitude, longitude, description, json.dumps(list_of_facilities), \
-        json.dumps(phone), json.dumps(stores)
+           json.dumps(phone), json.dumps(stores)
