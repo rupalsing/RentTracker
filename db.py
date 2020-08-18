@@ -1,4 +1,5 @@
 import os
+import json
 import psycopg2
 
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -21,14 +22,17 @@ def get_all_homes():
     ans = {'homes': []}
     for row in result:
         ans['homes'].append({
-            'id': row[0],
-            'link': row[1],
-            'title': row[2],
-            'property_overview': row[3],
-            'lease': row[4],
-            'description': row[5],
-            'facilities': row[6],
-            'phone': row[7],
+            'link': row[0],
+            'title': row[1],
+            'property_overview': row[2],
+            'lease': row[3],
+            'description': row[4],
+            'facilities': json.loads(row[5]),
+            'phones': json.loads(row[6]),
+            'rent': row[7],
+            'latitude': row[8],
+            'longitude': row[9],
+            'stores': json.loads(row[10])
         })
     return ans
 
