@@ -22,6 +22,8 @@ def add_store(store_to_find, latitude, longitude, res):
     res[store_to_find]['long'] = store_long
     res[store_to_find]['distance'] = store_dist
     res[store_to_find]['time'] = store_time
+    res[store_to_find][
+        'navigation_link'] = f"https://www.google.com/maps/dir/{latitude},{longitude}/{store_lat},{store_long}"
 
 
 def get_stores_location(latitude, longitude):
